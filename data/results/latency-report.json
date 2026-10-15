@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-10-15T14:32:36.903Z",
+  "provider": "cloudflare",
+  "model": "@cf/meta/llama-3.1-70b-instruct",
+  "iterations": 3,
+  "apiFirst": {
+    "min": 2791,
+    "max": 4777,
+    "mean": 3595,
+    "median": 3217,
+    "p50": 3217,
+    "p95": 4777,
+    "p99": 4777
+  },
+  "toolCalling": {
+    "min": 5409,
+    "max": 6006,
+    "mean": 5732,
+    "median": 5780,
+    "p50": 5780,
+    "p95": 6006,
+    "p99": 6006
+  },
+  "difference": {
+    "medianDeltaMs": 2563,
+    "p95DeltaMs": 1229,
+    "slowerByPercent": 80
+  }
+}

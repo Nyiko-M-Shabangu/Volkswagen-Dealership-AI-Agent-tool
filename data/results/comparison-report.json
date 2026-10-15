@@ -1,0 +1,141 @@
+{
+  "generatedAt": "2026-10-15T14:33:21.746Z",
+  "executiveSummary": {
+    "fastestApproach": "API-First",
+    "cheapestApproach": "API-First",
+    "mostAccurate": "API-First"
+  },
+  "latency": {
+    "timestamp": "2026-10-15T14:32:36.903Z",
+    "provider": "cloudflare",
+    "model": "@cf/meta/llama-3.1-70b-instruct",
+    "iterations": 3,
+    "apiFirst": {
+      "min": 2791,
+      "max": 4777,
+      "mean": 3595,
+      "median": 3217,
+      "p50": 3217,
+      "p95": 4777,
+      "p99": 4777
+    },
+    "toolCalling": {
+      "min": 5409,
+      "max": 6006,
+      "mean": 5732,
+      "median": 5780,
+      "p50": 5780,
+      "p95": 6006,
+      "p99": 6006
+    },
+    "difference": {
+      "medianDeltaMs": 2563,
+      "p95DeltaMs": 1229,
+      "slowerByPercent": 80
+    }
+  },
+  "tokens": {
+    "timestamp": "2026-10-15T14:32:58.106Z",
+    "provider": "cloudflare",
+    "model": "@cf/meta/llama-3.1-70b-instruct",
+    "iterations": 2,
+    "averageTokens": {
+      "apiFirst": 258,
+      "toolCalling": 441,
+      "difference": 183,
+      "percentIncrease": 71
+    },
+    "rawSamples": {
+      "apiFirst": [
+        {
+          "prompt": 182,
+          "completion": 55,
+          "total": 237
+        },
+        {
+          "prompt": 182,
+          "completion": 96,
+          "total": 278
+        }
+      ],
+      "toolCalling": [
+        {
+          "initial": {
+            "prompt": 241,
+            "completion": 33,
+            "total": 274
+          },
+          "final": {
+            "prompt": 78,
+            "completion": 101,
+            "total": 179
+          },
+          "total": 453
+        },
+        {
+          "initial": {
+            "prompt": 241,
+            "completion": 33,
+            "total": 274
+          },
+          "final": {
+            "prompt": 78,
+            "completion": 76,
+            "total": 154
+          },
+          "total": 428
+        }
+      ]
+    }
+  },
+  "accuracy": {
+    "timestamp": "2026-10-15T14:33:20.841Z",
+    "provider": "cloudflare",
+    "model": "@cf/meta/llama-3.1-70b-instruct",
+    "iterations": 2,
+    "apiFirst": {
+      "criticalScore": {
+        "mean": 100,
+        "breakdown": {
+          "nameCorrect": 100,
+          "hasAddress": 100,
+          "distanceReasonable": 100
+        }
+      },
+      "qualityScore": {
+        "mean": 100,
+        "breakdown": {
+          "answerMentionsName": 100,
+          "answerIncludesDistance": 100,
+          "answerIncludesLocation": 100,
+          "hasHoursInfo": 100
+        }
+      }
+    },
+    "toolCalling": {
+      "criticalScore": {
+        "mean": 100,
+        "breakdown": {
+          "nameCorrect": 100,
+          "hasAddress": 100,
+          "distanceReasonable": 100
+        }
+      },
+      "qualityScore": {
+        "mean": 75,
+        "breakdown": {
+          "answerMentionsName": 0,
+          "answerIncludesDistance": 100,
+          "answerIncludesLocation": 100,
+          "hasHoursInfo": 100
+        }
+      }
+    }
+  },
+  "recommendation": [
+    "Use API-First for high-traffic, location-only search queries (< 3s SLA with 1 LLM turn).",
+    "API-First consumes fewer tokens by sending structured pre-filtered context rather than schema roundtrips.",
+    "Use Tool Calling when queries involve multi-criteria reasoning, follow-up constraints, or user preferences.",
+    "Deploy the HybridRouter in production to seamlessly get the best of both patterns."
+  ]
+}

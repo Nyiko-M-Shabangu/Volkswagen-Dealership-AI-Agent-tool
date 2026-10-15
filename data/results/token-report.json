@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-10-15T14:32:58.106Z",
+  "provider": "cloudflare",
+  "model": "@cf/meta/llama-3.1-70b-instruct",
+  "iterations": 2,
+  "averageTokens": {
+    "apiFirst": 258,
+    "toolCalling": 441,
+    "difference": 183,
+    "percentIncrease": 71
+  },
+  "rawSamples": {
+    "apiFirst": [
+      {
+        "prompt": 182,
+        "completion": 55,
+        "total": 237
+      },
+      {
+        "prompt": 182,
+        "completion": 96,
+        "total": 278
+      }
+    ],
+    "toolCalling": [
+      {
+        "initial": {
+          "prompt": 241,
+          "completion": 33,
+          "total": 274
+        },
+        "final": {
+          "prompt": 78,
+          "completion": 101,
+          "total": 179
+        },
+        "total": 453
+      },
+      {
+        "initial": {
+          "prompt": 241,
+          "completion": 33,
+          "total": 274
+        },
+        "final": {
+          "prompt": 78,
+          "completion": 76,
+          "total": 154
+        },
+        "total": 428
+      }
+    ]
+  }
+}

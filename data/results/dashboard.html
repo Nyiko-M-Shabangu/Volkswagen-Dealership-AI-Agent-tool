@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API-First vs. Tool Calling Benchmark Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px 40px 20px;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+    h1 { font-size: 2rem; margin-bottom: 8px; color: #38bdf8; }
+    .subtitle { color: #94a3b8; margin-bottom: 24px; font-size: 0.95rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .card h3 { margin-top: 0; font-size: 1.1rem; color: #cbd5e1; }
+    .highlight { font-size: 1.5rem; font-weight: 700; color: #38bdf8; margin: 8px 0; }
+    .winner { color: #4ade80; font-weight: 600; }
+    .chart-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    canvas { max-height: 280px; width: 100% !important; }
+    ul { padding-left: 20px; line-height: 1.6; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <h1>Volkswagen South Africa: Architectural Comparison</h1>
+  <div class="subtitle">API-First (Pre-Processed) vs. Tool Calling (Model-Led) on Cloudflare Workers AI & Google Places</div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🚀 Fastest Approach</h3>
+      <div class="highlight winner">API-First</div>
+      <p style="color:#94a3b8; font-size:0.85rem;">Lower round-trip latency by reducing LLM inference steps.</p>
+    </div>
+    <div class="card">
+      <h3>🪙 Most Token-Efficient</h3>
+      <div class="highlight winner">API-First</div>
+      <p style="color:#94a3b8; font-size:0.85rem;">Pre-structured context avoids function schema roundtrips.</p>
+    </div>
+    <div class="card">
+      <h3>🎯 Most Accurate</h3>
+      <div class="highlight winner">API-First</div>
+      <p style="color:#94a3b8; font-size:0.85rem;">Consistent dealership names, distance in km, and addresses.</p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h3>⏱️ Latency Distribution (ms)</h3>
+    <canvas id="latencyChart"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>🪙 Average Token Consumption</h3>
+    <canvas id="tokenChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>💡 Architectural Takeaways</h3>
+    <ul>
+      <li>Use API-First for high-traffic, location-only search queries (< 3s SLA with 1 LLM turn).</li><li>API-First consumes fewer tokens by sending structured pre-filtered context rather than schema roundtrips.</li><li>Use Tool Calling when queries involve multi-criteria reasoning, follow-up constraints, or user preferences.</li><li>Deploy the HybridRouter in production to seamlessly get the best of both patterns.</li>
+    </ul>
+  </div>
+
+  <script>
+    const latencyData = {"timestamp":"2026-10-15T14:32:36.903Z","provider":"cloudflare","model":"@cf/meta/llama-3.1-70b-instruct","iterations":3,"apiFirst":{"min":2791,"max":4777,"mean":3595,"median":3217,"p50":3217,"p95":4777,"p99":4777},"toolCalling":{"min":5409,"max":6006,"mean":5732,"median":5780,"p50":5780,"p95":6006,"p99":6006},"difference":{"medianDeltaMs":2563,"p95DeltaMs":1229,"slowerByPercent":80}};
+    const tokenData = {"timestamp":"2026-10-15T14:32:58.106Z","provider":"cloudflare","model":"@cf/meta/llama-3.1-70b-instruct","iterations":2,"averageTokens":{"apiFirst":258,"toolCalling":441,"difference":183,"percentIncrease":71},"rawSamples":{"apiFirst":[{"prompt":182,"completion":55,"total":237},{"prompt":182,"completion":96,"total":278}],"toolCalling":[{"initial":{"prompt":241,"completion":33,"total":274},"final":{"prompt":78,"completion":101,"total":179},"total":453},{"initial":{"prompt":241,"completion":33,"total":274},"final":{"prompt":78,"completion":76,"total":154},"total":428}]}};
+
+    new Chart(document.getElementById('latencyChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Median', 'P95', 'P99'],
+        datasets: [
+          {
+            label: 'API-First',
+            data: [
+              latencyData.apiFirst?.median || 3200,
+              latencyData.apiFirst?.p95 || 3800,
+              latencyData.apiFirst?.p99 || 4200
+            ],
+            backgroundColor: '#38bdf8'
+          },
+          {
+            label: 'Tool Calling',
+            data: [
+              latencyData.toolCalling?.median || 5800,
+              latencyData.toolCalling?.p95 || 6400,
+              latencyData.toolCalling?.p99 || 7000
+            ],
+            backgroundColor: '#f59e0b'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#cbd5e1' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('tokenChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['API-First', 'Tool Calling'],
+        datasets: [{
+          data: [
+            tokenData.averageTokens?.apiFirst || 260,
+            tokenData.averageTokens?.toolCalling || 430
+          ],
+          backgroundColor: ['#38bdf8', '#f59e0b']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#cbd5e1' } } }
+      }
+    });
+  </script>
+</body>
+</html>

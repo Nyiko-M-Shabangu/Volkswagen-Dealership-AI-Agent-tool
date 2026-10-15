@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-10-15T14:33:20.841Z",
+  "provider": "cloudflare",
+  "model": "@cf/meta/llama-3.1-70b-instruct",
+  "iterations": 2,
+  "apiFirst": {
+    "criticalScore": {
+      "mean": 100,
+      "breakdown": {
+        "nameCorrect": 100,
+        "hasAddress": 100,
+        "distanceReasonable": 100
+      }
+    },
+    "qualityScore": {
+      "mean": 100,
+      "breakdown": {
+        "answerMentionsName": 100,
+        "answerIncludesDistance": 100,
+        "answerIncludesLocation": 100,
+        "hasHoursInfo": 100
+      }
+    }
+  },
+  "toolCalling": {
+    "criticalScore": {
+      "mean": 100,
+      "breakdown": {
+        "nameCorrect": 100,
+        "hasAddress": 100,
+        "distanceReasonable": 100
+      }
+    },
+    "qualityScore": {
+      "mean": 75,
+      "breakdown": {
+        "answerMentionsName": 0,
+        "answerIncludesDistance": 100,
+        "answerIncludesLocation": 100,
+        "hasHoursInfo": 100
+      }
+    }
+  }
+}

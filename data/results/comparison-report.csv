@@ -1,0 +1,6 @@
+Metric,API-First,Tool Calling,Winner
+Median Latency (ms),3217,5780,API-First
+Average Tokens,258,441,API-First
+Est. Cost / 1k Queries (GPT-4o),$1.22,$2.02,API-First
+Critical Accuracy %,100,100,API-First
+Quality Accuracy %,100,75,

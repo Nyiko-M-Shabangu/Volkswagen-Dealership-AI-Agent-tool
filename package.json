@@ -1,0 +1,41 @@
+{
+  "name": "tool-calling-analysis",
+  "version": "1.0.0",
+  "description": "Empirical benchmark comparing latency, token consumption, and accuracy between API-First and Tool Calling LLM architectures in Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "benchmark": "node benchmarks/latency-suite.js 3 && node benchmarks/token-benchmark.js 2 && node benchmarks/accuracy-evaluator.js 2 && node benchmarks/comparison-report.js && node benchmarks/generate-dashboard.js",
+    "benchmark:latency": "node benchmarks/latency-suite.js",
+    "benchmark:tokens": "node benchmarks/token-benchmark.js",
+    "benchmark:accuracy": "node benchmarks/accuracy-evaluator.js",
+    "benchmark:report": "node benchmarks/comparison-report.js",
+    "benchmark:dashboard": "node benchmarks/generate-dashboard.js",
+    "check:models": "node scripts/check-cf-models.js",
+    "test": "jest --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nyiko-M-Shabangu/Tool-Calling-analysis.git"
+  },
+  "keywords": [
+    "llm",
+    "tool-calling",
+    "function-calling",
+    "api-first",
+    "benchmarks",
+    "google-places",
+    "nodejs",
+    "ai-engineering"
+  ],
+  "author": "Nyiko Shabangu",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.18.1",
+    "dotenv": "^17.4.2",
+    "openai": "^6.48.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
