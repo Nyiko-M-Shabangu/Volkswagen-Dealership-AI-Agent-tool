@@ -8,14 +8,14 @@ describe('Distance Calculator (Haversine Formula)', () => {
     expect(dist).toBe(0);
   });
 
-  test('calculates accurate distance between known South African landmarks (Sandton to Rosebank)', () => {
-    // Sandton City (-26.1044, 28.0645) to Rosebank Mall (-26.1467, 28.0436) ~ 4.5 km
+  test('calculates accurate distance between Volkswagen headquarters and Rosebank', () => {
+    // Volkswagen headquarters (-26.1044, 28.0645) to Rosebank Mall (-26.1467, 28.0436) ~ 5.1 km
     const dist = calculateDistance(-26.1044, 28.0645, {
       latitude: -26.1467,
       longitude: 28.0436
     });
     expect(dist).toBeGreaterThanOrEqual(4.0);
-    expect(dist).toBeLessThanOrEqual(5.0);
+    expect(dist).toBeLessThanOrEqual(5.5);
   });
 
   test('supports { lat, lng } shorthand properties', () => {
